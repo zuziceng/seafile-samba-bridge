@@ -59,7 +59,11 @@ fi
 # ============================================
 echo "Creating tmpfs for cache at $CACHE_DIR..."
 mkdir -p "$CACHE_DIR"
-mount -t tmpfs -o size=${CACHE_SIZE_LIMIT} tmpfs "$CACHE_DIR"
+if ! mountpoint -q "$CACHE_DIR"; then
+    mount -t tmpfs -o size=${CACHE_SIZE_LIMIT} tmpfs "$CACHE_DIR"
+else
+    echo "tmpfs already mounted at $CACHE_DIR, skipping"
+fi
 
 # ============================================
 # 4. 生成 SeaDrive 配置文件
