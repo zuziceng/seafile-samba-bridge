@@ -1,11 +1,7 @@
 FROM debian:13
 
 # 安装依赖（libfuse2t64 用于 AppImage FUSE2 兼容）
-RUN sed -i 's|deb.debian.org|mirrors.ustc.edu.cn|g' \
-    /etc/apt/sources.list 2>/dev/null; \
-    sed -i 's|deb.debian.org|mirrors.ustc.edu.cn|g' \
-    /etc/apt/sources.list.d/*.sources 2>/dev/null; \
-    apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y \
     wget \
     samba \
     fuse \
